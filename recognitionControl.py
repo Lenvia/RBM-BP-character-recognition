@@ -23,14 +23,20 @@ def main():
 
 # 取反色
 def inverse_color(image):
-
+    # 获取高度、宽度
     height, width, temp = image.shape
     img2 = image.copy()
 
     for i in range(height):
         for j in range(width):
-            img2[i, j] = (255-image[i, j][0], 255-image[i, j][1], 255-image[i, j][2])
+            img2[i, j] = (255-image[i, j][0], 255-image[i, j][1], 255-image[i, j][2])  # 对255去反色
     return img2
+
+
+def inverse(arr):
+    for i in range(0, len(arr)):
+        arr[i] = 255 - arr[i]
+    return arr
 
 
 class recognitionWindow(QMainWindow, Ui_MainWindow):
@@ -54,7 +60,7 @@ class recognitionWindow(QMainWindow, Ui_MainWindow):
 
         # 读取模型
         for i in range(4):
-            dirs = 'BP2_result'
+            dirs = 'BP_result'
             self._w[i] = joblib.load(dirs + '/_w[' + str(i) + '].pkl')
             self._b[i] = joblib.load(dirs + '/_b[' + str(i) + '].pkl')
 
@@ -103,8 +109,8 @@ class recognitionWindow(QMainWindow, Ui_MainWindow):
         else:
             # 读取原图
             img_origin = cv2.imread(self.imagePath)
-            # 取反色
-            img_origin = inverse_color(img_origin)
+            # # 取反色
+            # img_origin = inverse_color(img_origin)
             # 为图片重新指定尺寸
             img_resize = cv2.resize(img_origin, (28, 28))
             # 转为灰度图
@@ -112,8 +118,20 @@ class recognitionWindow(QMainWindow, Ui_MainWindow):
 
             # 转成一维数组 并保存到本地 必须要写入csv再读取出来，因为写入时是uint8编码，直接转float32值会改变
             img = img_gray.reshape(1, 784)
-            np.savetxt(self.savePath, img, delimiter=',')
 
+            # 根据背景判断是否给图片取反色
+            count_0 = 0
+            count_255 = 0
+            for x in img[0]:
+                if str(x) == '0':
+                    count_0 += 1
+                if str(x) == '255':
+                    count_255 += 1
+            if count_0 < count_255:  # 白色背景
+                inverse(img[0])
+            # print(count_0, count_255)
+
+            np.savetxt(self.savePath, img, delimiter=',')
             # 读取测试图片
             img = np.genfromtxt(self.savePath, delimiter=",", dtype='float32')
             img = img.reshape(1, 784)

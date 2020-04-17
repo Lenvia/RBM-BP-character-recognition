@@ -26,7 +26,7 @@ class BP(object):
         self.b_list = []  # 偏置量列表
         self.eta = 0.2  # 学习率
         self.momentum = 0  # 动量
-        self.epochs = 800
+        self.epochs = 1000
         self.batchsize = 100
         # 分成的块数，self.nblock * self.batchsize = ns
         self.nblock = int((self._X.shape[0] + self.batchsize - 1) / self.batchsize)
@@ -49,19 +49,19 @@ class BP(object):
         _b = [[] for _ in range(len(self._sizes) + 1)]  # 3层RBM+1层BP
 
         _a[0] = tf.compat.v1.placeholder("float", [None, self._X.shape[1]])  # 训练数据
-        y = tf.compat.v1.placeholder("float", [None, self._Y.shape[1]])  # 标签
-        keep_prob = tf.compat.v1.placeholder("float", None)
+        y = tf.compat.v1.placeholder("float", [None, self._Y.shape[1]])  # 真实标签
+        keep_prob = tf.compat.v1.placeholder("float", None)  # 保留率（用于dropout泛化）
 
         # 需要进行优化的变量
         for i in range(len(self._sizes)+1):
             _w[i] = tf.Variable(self.w_list[i])
             _b[i] = tf.Variable(self.b_list[i])
 
-        # 向前计算
+        # 向前传播
         for i in range(1, len(self._sizes)+2):
             _a[i] = tf.nn.sigmoid(tf.matmul(_a[i - 1], _w[i - 1]) + _b[i-1])
-            _a[i] = tf.nn.dropout(_a[i], rate = 1-keep_prob)
-
+            if i != len(self._sizes)+1:  # 除了最后的输出层
+                _a[i] = tf.nn.dropout(_a[i], rate=1-keep_prob)  # 每一个中间隐藏层都有rate的可能失活
 
         # 计算代价
         cost = tf.reduce_mean(tf.square(_a[-1] - y))
@@ -70,7 +70,7 @@ class BP(object):
         predict_op = tf.argmax(_a[-1], 1)  # tf.argmax(x,1)输出的是列向量， 每一行的值为x所有列中最大的 下标
         # 代价列表
         costList = []
-
+        # 开始训练
         with tf.compat.v1.Session() as sess:
             sess.run(tf.compat.v1.global_variables_initializer())
             for epoch in range(self.epochs):
@@ -92,14 +92,14 @@ class BP(object):
                     self.b_list[j] = sess.run(_b[j])
 
                 # 输出在训练集上的正确率 和 代价
+                # 此时keep_prob设置为1，即所有神经元都保持活性
                 print("Accuracy for epoch " + str(epoch) + ": " +
                       str(np.mean(
                           np.argmax(self._Y, axis=1) == sess.run(predict_op, feed_dict={_a[0]: self._X, y: self._Y, keep_prob: 1}))),
                       'reconstruction error: %f' % costList[-1])
                 # 每20轮保存训练模型
                 if (epoch + 1) % 20 == 0:
-                    # print(epoch)
-                    dirs = 'BP2_result'
+                    dirs = 'BP_result'
                     if not os.path.exists(dirs):
                         os.makedirs(dirs)
                     for k in range(4):
