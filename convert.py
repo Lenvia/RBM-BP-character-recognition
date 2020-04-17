@@ -1,3 +1,5 @@
+import os
+
 def convert(imgf, labelf, outf, n):
     f = open(imgf, "rb")
     o = open(outf, "w")
@@ -19,6 +21,10 @@ def convert(imgf, labelf, outf, n):
     o.close()
     l.close()
 
+
+dirs = 'dataset'
+if not os.path.exists(dirs):
+    os.makedirs(dirs)
 
 convert("train-images-idx3-ubyte", "train-labels-idx1-ubyte",
         "./dataset/mnist_train.csv", 60000)
