@@ -1,4 +1,9 @@
 import os
+import math
+import tensorflow as tf
+import numpy as np
+import joblib
+
 
 def convert(imgf, labelf, outf, n):
     f = open(imgf, "rb")
@@ -22,13 +27,28 @@ def convert(imgf, labelf, outf, n):
     l.close()
 
 
-dirs = 'dataset'
+dir0 = 'MNIST_data/'
+dirs = 'dataset/'
+
 if not os.path.exists(dirs):
     os.makedirs(dirs)
 
-convert("train-images-idx3-ubyte", "train-labels-idx1-ubyte",
-        "./dataset/mnist_train.csv", 60000)
-convert("t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte",
-        "./dataset/mnist_test.csv", 10000)
+
+convert(dir0 + "train-images-idx3-ubyte", dir0 + "train-labels-idx1-ubyte",
+        dirs + "mnist_train.csv", 60000)
+convert(dir0 + "t10k-images-idx3-ubyte", dir0 + "t10k-labels-idx1-ubyte",
+        dirs + "mnist_test.csv", 10000)
 
 print("Convert Finished!")
+
+
+# 加载数据
+trainPath = dirs + "mnist_train.csv"
+trainData = np.genfromtxt(trainPath, delimiter=",", dtype='float32')
+
+testPath = dirs + "mnist_test.csv"
+testData = np.genfromtxt(testPath, delimiter=",", dtype='float32')
+
+# 保存为pkl格式
+joblib.dump(trainData, './trainData.pkl')
+joblib.dump(testData, './testData.pkl')
