@@ -1,7 +1,7 @@
 import math
 import tensorflow as tf
 import numpy as np
-from sklearn.externals import joblib
+import joblib
 
 # 加载数据并保存
 trainPath = "./dataset/mnist_train.csv"

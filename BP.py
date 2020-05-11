@@ -2,7 +2,6 @@ import math
 import tensorflow as tf
 import numpy as np
 import joblib
-from PIL import Image
 import matplotlib.pyplot as plt
 import os
 import sys
@@ -39,7 +38,7 @@ class BP(object):
 
         # 第四层，使用随机生成的权值，偏置为0
         self.w_list.append(
-            np.random.uniform(-1, 1, [self._sizes[-1], Y.shape[1]]).astype(np.float32))
+            np.random.uniform(-0.1, 0.1, [self._sizes[-1], Y.shape[1]]).astype(np.float32))
         self.b_list.append(np.zeros([Y.shape[1]], np.float32))
 
     def train(self):
@@ -64,9 +63,9 @@ class BP(object):
                 _a[i] = tf.nn.dropout(_a[i], rate=1-keep_prob)  # 每一个中间隐藏层都有rate的可能失活
 
         # 计算代价
-        cost = tf.reduce_mean(tf.square(_a[-1] - y))
+        loss = tf.reduce_mean(tf.square(_a[-1] - y))
         # 使用动量优化器进行优化
-        train_op = tf.compat.v1.train.MomentumOptimizer(self.eta, self.momentum).minimize(cost)
+        train_op = tf.compat.v1.train.MomentumOptimizer(self.eta, self.momentum).minimize(loss)
         predict_op = tf.argmax(_a[-1], 1)  # tf.argmax(x,1)输出的是列向量， 每一行的值为x所有列中最大的 下标
         # 代价列表
         costList = []
@@ -82,7 +81,7 @@ class BP(object):
                     labels = self._Y[start:end]
                     # 取每一轮最后一次迭代的error
                     if iteration == self.nblock:
-                        error = sess.run(cost, feed_dict={_a[0]: inputs, y: labels, keep_prob: 0.7})
+                        error = sess.run(loss, feed_dict={_a[0]: inputs, y: labels, keep_prob: 0.7})
                         costList.append(error)
                     sess.run(train_op, feed_dict={_a[0]: inputs, y: labels, keep_prob: 0.7})
 
@@ -110,7 +109,7 @@ class BP(object):
         # 绘制代价曲线
         plt.plot(costList)
         plt.xlabel("Batch Number")
-        plt.ylabel("cost")
+        plt.ylabel("loss")
         plt.show()
 
 

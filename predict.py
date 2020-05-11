@@ -14,7 +14,7 @@ _b = [None] * 5
 
 
 for i in range(4):
-    dirs = 'BP2_result'
+    dirs = 'BP_result'
     _w[i] = joblib.load(dirs + '/_w[' + str(i) + '].pkl')
     _b[i] = joblib.load(dirs + '/_b[' + str(i) + '].pkl')
 
@@ -37,7 +37,7 @@ predict_op = tf.argmax(_a[-1], 1)
 with tf.compat.v1.Session() as sess:
     # 初始化变量
     sess.run(tf.compat.v1.global_variables_initializer())
-    # result = sess.run(predict_op)
+    result = sess.run(predict_op)
 
 # print("预测结果为：", result)
 

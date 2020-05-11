@@ -79,15 +79,15 @@ class recognitionWindow(QMainWindow, Ui_MainWindow):
             self.tempPath = ""
         # print("打开文件")
         pathInfo = QtWidgets.QFileDialog.getOpenFileName(self, "选择一张图片", ".")
-        self.imagePath = pathInfo[0]
+        self.imagePath = pathInfo[0]  # 获取绝对路径
         self.tempPath = self.imagePath
-        if self.imagePath != "":
-            fileFormat = self.imagePath.split('.')[-1]
+        if self.imagePath != "":  # 如果路径不为空
+            fileFormat = self.imagePath.split('.')[-1]  # 则取文件的后缀名，并判断是否为图片
             # print(fileFormat)
             if fileFormat not in ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'bmp', 'BMP']:
                 errInfo = QMessageBox.critical(self, "操作反馈", "请选择以下格式的图片：\n jpg, jpeg, png, bmp")
                 self.imagePath = ""
-            else:
+            else:  # 是图片的格式，修改大小并显示
                 # 修改大小
                 tempPic = cv2.imread(self.imagePath)
                 tempPic = cv2.resize(tempPic, (200, 200))

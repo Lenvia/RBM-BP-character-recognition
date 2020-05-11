@@ -4,7 +4,6 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import joblib
 import pdb
-from PIL import Image
 import os
 np.set_printoptions(threshold=np.inf)
 
@@ -50,9 +49,9 @@ class RBM(object):
         _hb = tf.compat.v1.placeholder("float", [self.nh])  # 尺寸：nh * 1
         _vb = tf.compat.v1.placeholder("float", [self.nv])  # 尺寸：nv * 1
         # 初始化超参数
-        prv_w = np.zeros([self.nv, self.nh], np.float32)
-        prv_hb = np.zeros([self.nh], np.float32)
-        prv_vb = np.zeros([self.nv], np.float32)
+        var_w = np.zeros([self.nv, self.nh], np.float32)
+        var_hb = np.zeros([self.nh], np.float32)
+        var_vb = np.zeros([self.nv], np.float32)
 
         # batchsize * input_size
         v0 = tf.compat.v1.placeholder("float", [None, self.nv])  # 直接放进去一块，而不是一行。行数是batch_size
@@ -101,24 +100,24 @@ class RBM(object):
                     end = start + self.batchsize
                     V0 = input_X[start:end, :]  # 取一块数据。self.batchsize*784
 
-                    prv_w = sess.run(update_w, feed_dict={v0: V0, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
-                    prv_hb = sess.run(update_hb, feed_dict={v0: V0, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
-                    prv_vb = sess.run(update_vb, feed_dict={v0: V0, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
+                    var_w = sess.run(update_w, feed_dict={v0: V0, _w: var_w, _hb: var_hb, _vb: var_vb})
+                    var_hb = sess.run(update_hb, feed_dict={v0: V0, _w: var_w, _hb: var_hb, _vb: var_vb})
+                    var_vb = sess.run(update_vb, feed_dict={v0: V0, _w: var_w, _hb: var_hb, _vb: var_vb})
 
-                    error = sess.run(err, feed_dict={v0: X, _w: prv_w, _vb: prv_vb, _hb: prv_hb})
+                    error = sess.run(err, feed_dict={v0: X, _w: var_w, _vb: var_vb, _hb: var_hb})
                     errors.append(error)
                 print('Epoch: %d' % epoch, 'reconstruction error: %f' % errors[-1])
 
-        self.W = prv_w
-        self.hbias = prv_hb
-        self.vbias = prv_vb
+        self.W = var_w
+        self.hbias = var_hb
+        self.vbias = var_vb
 
         plt.plot(errors)
         plt.xlabel("Batch Number")
         plt.ylabel("Error")
         plt.show()
 
-        dirs = 'RBM_model2'
+        dirs = 'RBM_model'
         if not os.path.exists(dirs):
             os.makedirs(dirs)
         joblib.dump(self.W, dirs+'/W'+str(number)+'.pkl')
