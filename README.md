@@ -6,6 +6,7 @@ RBM+BP神经网络识别手写数字、英文字符
 ## 文件目录树
 
 .
+
 ├── README.md（使用前必读）
 
 ├── Ui_recognition.py
