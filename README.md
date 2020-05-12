@@ -7,33 +7,61 @@ RBM+BP神经网络识别手写数字、英文字符
 
 .
 ├── README.md（使用前必读）
+
 ├── Ui_recognition.py
+
 ├── Ui_recognition.ui（手写数字识别ui）
+
 ├── Ui_recognition2.py
+
 ├── Ui_recognition2.ui（英文字母识别ui）
+
 ├──**charRec（英文字符项目文件夹）**
+
 │  ├── BP2.py
+
 │  ├── BP_result2
+
 │  ├── Custom picture2
+
 │  ├── RBM_model2
+
 │  ├── convert2.py
+
 │  ├── myRBM2.py
+
 │  └── predict2.py
+
 ├── **numRec（数字项目文件夹）**
+
 │  ├── BP.py（BP网络）
+
 │  ├── BP_result（BP训练结果）
+
 │  ├── Custom picture（单个样本测试图片，数字0-9）
+
 │  ├── MNIST_data（MNIST原始数据集）
+
 │  ├── RBM_model（RBM训练结果）
+
 │  ├── convert.py（数据集预加载）
+
 │  ├── myRBM.py（RBM网络）
+
 │  └── predict.py（MNIST测试集）
+
 ├── <font color=red>recognitionControl.py</font>（数字识别GUI，系统入口）
+
 ├── recognitionControl2.py（字符识别GUI，系统入口）
+
 ├── <font color=gray>testData.pkl</font>
+
 ├── <font color=gray>testData2.pkl</font>
+
 ├── <font color=gray>trainData.pkl</font>
+
 ├── <font color=gray>trainData2.pkl</font>
+
 └── tree.txt
 
 
