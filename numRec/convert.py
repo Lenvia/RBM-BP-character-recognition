@@ -50,5 +50,6 @@ testPath = dirs + "mnist_test.csv"
 testData = np.genfromtxt(testPath, delimiter=",", dtype='float32')
 
 # 保存为pkl格式
-joblib.dump(trainData, './trainData.pkl')
-joblib.dump(testData, './testData.pkl')
+joblib.dump(trainData, '../trainData.pkl')
+joblib.dump(testData, '../testData.pkl')
+print("数据集dump完毕！")

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-trainData = joblib.load('./trainData.pkl')
+trainData = joblib.load('../trainData.pkl')
 
 trX = trainData[:, 1:]
 trX = (trX - np.min(trX, axis=0)) / (np.max(trX, axis=0) - np.min(trX, axis=0) + 0.001)  # 归一化
@@ -115,5 +115,4 @@ class BP(object):
 
 # 启动
 bp = BP(nh_sizes, trX, trY)
-print("_____开始训练______")
 bp.train()

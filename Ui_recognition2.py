@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Ui_recognition.ui'
+# Form implementation generated from reading ui file 'Ui_recognition2.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.title.setText(_translate("MainWindow", "手写数字识别"))
+        self.title.setText(_translate("MainWindow", "英文字母识别"))
         self.resultLabel.setText(_translate("MainWindow", "识别结果："))
         self.openButton.setText(_translate("MainWindow", "选择图片"))
         self.recButton.setText(_translate("MainWindow", "识别"))

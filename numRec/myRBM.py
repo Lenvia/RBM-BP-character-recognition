@@ -7,7 +7,7 @@ import pdb
 import os
 np.set_printoptions(threshold=np.inf)
 
-trainData = joblib.load('./trainData.pkl')
+trainData = joblib.load('../trainData.pkl')
 
 trX = trainData[:, 1:]
 trX = (trX - np.min(trX, axis=0)) / (np.max(trX, axis=0) - np.min(trX, axis=0) + 0.001)  # 归一化
@@ -136,12 +136,10 @@ class RBM(object):
 
 # 叠加RBM层
 for i, output_size in enumerate(nh_sizes):  # enumerate 枚举
-    print('RBM: ', i, ' ', input_size, '->', output_size)
     RBM_list.append(RBM(input_size, output_size))  # 第二个参数size表示output_size
     input_size = output_size
 
 for rbm in RBM_list:
-    print('New RBM:')
     # 逐层训练RBM
     output_X = rbm.train(input_X)  # 上一层训练输出为下一层的输入
     print("-----------****----------")

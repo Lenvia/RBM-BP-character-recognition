@@ -1,0 +1,26 @@
+.
+├── README.md
+├── Ui_recognition.py
+├── Ui_recognition.ui
+├── Ui_recognition2.py
+├── Ui_recognition2.ui
+├── charRec
+│   ├── BP2.py
+│   ├── BP_result2
+│   ├── Custom picture2
+│   ├── RBM_model2
+│   ├── convert2.py
+│   ├── myRBM2.py
+│   └── predict2.py
+├── numRec
+│   ├── BP.py
+│   ├── BP_result
+│   ├── Custom picture
+│   ├── MNIST_data
+│   ├── RBM_model
+│   ├── convert.py
+│   ├── myRBM.py
+│   └── predict.py
+├── recognitionControl.py
+├── recognitionControl2.py
+└── tree.txt

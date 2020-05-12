@@ -46,7 +46,7 @@
      </font>
     </property>
     <property name="text">
-     <string>手写数字识别</string>
+     <string>英文字母识别</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

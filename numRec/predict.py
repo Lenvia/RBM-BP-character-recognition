@@ -18,7 +18,7 @@ for i in range(4):
     _w[i] = joblib.load(dirs + '/_w[' + str(i) + '].pkl')
     _b[i] = joblib.load(dirs + '/_b[' + str(i) + '].pkl')
 
-testData = joblib.load('./testData.pkl')
+testData = joblib.load('../testData.pkl')
 teX = testData[:, 1:]
 teX = (teX - np.min(teX, axis=0)) / (np.max(teX, axis=0) - np.min(teX, axis=0) + 0.001)  # 归一化
 
