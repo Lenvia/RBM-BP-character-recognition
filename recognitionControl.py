@@ -15,10 +15,12 @@ from PyQt5.QtWidgets import QTableView, QHeaderView, QMessageBox
 
 def main():
     # 程序的开始，所有的窗口都由登陆界面（w1）衍生
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     app = QApplication(sys.argv)
     w1 = recognitionWindow()  # w1表示登录窗口的对象
     w1.show()
     app.exec_()
+
 
 # 像素转换
 def inverse(arr):

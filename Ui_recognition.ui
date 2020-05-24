@@ -33,9 +33,9 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>120</x>
       <y>10</y>
-      <width>291</width>
+      <width>531</width>
       <height>51</height>
      </rect>
     </property>

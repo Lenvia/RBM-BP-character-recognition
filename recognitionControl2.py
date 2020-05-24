@@ -17,6 +17,7 @@ ch = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
 
 def main():
     # 程序的开始，所有的窗口都由登陆界面（w1）衍生
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     app = QApplication(sys.argv)
     w2 = recognitionWindow2()  # w1表示登录窗口的对象
     w2.show()

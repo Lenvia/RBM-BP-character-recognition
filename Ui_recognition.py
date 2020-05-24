@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
         self.imageLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.imageLabel.setObjectName("imageLabel")
         self.title = QtWidgets.QLabel(self.centralwidget)
-        self.title.setGeometry(QtCore.QRect(250, 10, 291, 51))
+        self.title.setGeometry(QtCore.QRect(120, 10, 531, 51))
         font = QtGui.QFont()
         font.setFamily("Kaiti SC")
         font.setPointSize(36)
