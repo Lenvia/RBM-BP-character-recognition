@@ -10,7 +10,6 @@ RBM+BP神经网络识别手写数字、英文字符
 
   请将RBM_BP_net文件夹提取出来并放在英文路径下，否则会导致图片读取失败
 
-- opencv 4.1.2 推荐从此链接下载：https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/opencv-python/
 
 - 不同操作系统中界面显示可能会有差异
 
