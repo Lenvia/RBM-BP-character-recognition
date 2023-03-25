@@ -16,7 +16,7 @@ RBM+BP神经网络识别手写数字、英文字符
 
 
 ## 文件目录树
-
+```
 .
 
 ├── README.md（使用前必读）
@@ -76,7 +76,7 @@ RBM+BP神经网络识别手写数字、英文字符
 ├── <font color=gray>trainData2.pk（经过处理的英文字符训练集）l</font>
 
 └── tree.txt
-
+```
 
 
 **注：**
